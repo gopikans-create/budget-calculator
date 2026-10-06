@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BudgetFlow</title>
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px;
+
+        background:
+            radial-gradient(circle at top right, #3730a3, transparent 35%),
+            radial-gradient(circle at bottom left, #581c87, transparent 40%),
+            #0f172a;
+
+        color: white;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+
+        padding: 40px;
+
+        border-radius: 24px;
+
+        background: rgba(255, 255, 255, 0.08);
+
+        border: 1px solid rgba(255, 255, 255, 0.12);
+
+        backdrop-filter: blur(20px);
+
+        box-shadow:
+            0 25px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 18px;
+
+        font-size: 28px;
+        font-weight: bold;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+        box-shadow:
+            0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+
+        color: #cbd5e1;
+
+        font-size: 13px;
+
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+
+        padding: 14px 15px;
+
+        border: 1px solid rgba(255,255,255,0.1);
+
+        border-radius: 11px;
+
+        outline: none;
+
+        background: rgba(15,23,42,0.6);
+
+        color: white;
+
+        font-size: 14px;
+    }
+
+    input::placeholder {
+        color: #64748b;
+    }
+
+    input:focus {
+        border-color: #818cf8;
+
+        box-shadow:
+            0 0 0 3px rgba(99,102,241,0.12);
+    }
+
+    .login-btn {
+        width: 100%;
+
+        padding: 14px;
+
+        border: none;
+
+        border-radius: 11px;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 10px 25px rgba(99,102,241,0.35);
+    }
+
+    #message {
+        text-align: center;
+
+        font-size: 14px;
+
+        margin-top: 18px;
+    }
+
+    .bottom-text {
+        text-align: center;
+
+        color: #94a3b8;
+
+        font-size: 14px;
+
+        margin-top: 25px;
+    }
+
+    a {
+        color: #a5b4fc;
+
+        text-decoration: none;
+
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<div class="login-card">
+
+    <div class="logo">₹</div>
+
+    <h1>Welcome Back</h1>
+
+    <p class="subtitle">
+        Login to manage your budget
+    </p>
+
+
+    <div class="input-group">
+
+        <label>Username</label>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+        >
+
+    </div>
+
+
+    <div class="input-group">
+
+        <label>Password</label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+        >
+
+    </div>
+
+
+    <button class="login-btn" onclick="login()">
+        Sign In
+    </button>
+
+
+    <p id="message"></p>
+
+
+    <p class="bottom-text">
+
+        Don't have an account?
+
+        <a href="index.html">
+            Create account
+        </a>
+
+    </p>
+
+</div>
+
+
+<script>
+
+    function login() {
+
+        let username =
+            document.getElementById("username").value.trim();
+
+        let password =
+            document.getElementById("password").value;
+
+        let message =
+            document.getElementById("message");
+
+
+        if (username == "" || password == "") {
+
+            message.innerHTML =
+                "Please fill all fields";
+
+            message.style.color = "#f87171";
+
+            return;
+        }
+
+
+        let storedUser =
+            localStorage.getItem("user");
+
+
+        if (storedUser == null) {
+
+            message.innerHTML =
+                "No registered account found";
+
+            message.style.color = "#f87171";
+
+            return;
+        }
+
+
+        let user =
+            JSON.parse(storedUser);
+
+
+        if (
+            username == user.username &&
+            password == user.password
+        ) {
+
+            // Store login status
+
+            localStorage.setItem(
+                "loggedIn",
+                "true"
+            );
+
+
+            // Store logged username
+
+            localStorage.setItem(
+                "loggedUsername",
+                user.username
+            );
+
+
+            // Go to budget page
+
+            window.location.href =
+                "budget.html";
+
+        } else {
+
+            message.innerHTML =
+                "Invalid username or password";
+
+            message.style.color = "#f87171";
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Budget Dashboard - BudgetFlow</title>
+
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+
+    min-height: 100vh;
+
+    background:
+
+        radial-gradient(
+            circle at top right,
+            #312e81,
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at bottom left,
+            #1e3a8a,
+            transparent 35%
+        ),
+
+        #0f172a;
+
+    color: white;
+
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+
+    height: 75px;
+
+    padding: 0 6%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+
+    background:
+        rgba(15,23,42,0.7);
+
+    backdrop-filter: blur(15px);
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.brand-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+}
+
+
+.brand h2 {
+
+    font-size: 20px;
+
+}
+
+
+.logout {
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid rgba(255,255,255,0.12);
+
+    background:
+        rgba(255,255,255,0.07);
+
+    color: #e2e8f0;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.logout:hover {
+
+    background:
+        rgba(255,255,255,0.14);
+
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+
+    width: 90%;
+
+    max-width: 1050px;
+
+    margin: 40px auto;
+
+}
+
+
+.welcome {
+
+    margin-bottom: 28px;
+
+}
+
+
+.welcome h1 {
+
+    font-size: 34px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.welcome p {
+
+    color: #94a3b8;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.summary-card {
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(15px);
+
+    transition: 0.3s;
+
+}
+
+
+.summary-card:hover {
+
+    transform: translateY(-3px);
+
+    background:
+        rgba(255,255,255,0.09);
+
+}
+
+
+.summary-card p {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.summary-card h2 {
+
+    font-size: 25px;
+
+}
+
+
+/* =========================
+   CALCULATOR
+========================= */
+
+.calculator {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 25px;
+
+}
+
+
+.expense-card,
+.result-card {
+
+    padding: 28px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(15px);
+
+}
+
+
+.expense-card h2,
+.result-card h2 {
+
+    margin-bottom: 22px;
+
+    font-size: 21px;
+
+}
+
+
+.input-group {
+
+    margin-bottom: 15px;
+
+}
+
+
+label {
+
+    display: block;
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+
+    margin-bottom: 7px;
+
+}
+
+
+input {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border-radius: 11px;
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    background:
+        rgba(15,23,42,0.6);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 14px;
+
+}
+
+
+input::placeholder {
+
+    color: #64748b;
+
+}
+
+
+input:focus {
+
+    border-color: #818cf8;
+
+    box-shadow:
+        0 0 0 3px rgba(99,102,241,0.12);
+
+}
+
+
+.calculate {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+    transition: 0.3s;
+
+}
+
+
+.calculate:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(99,102,241,0.3);
+
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.result-box {
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(15,23,42,0.5);
+
+    border:
+        1px solid rgba(255,255,255,0.06);
+
+    padding: 25px;
+
+}
+
+
+.result-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 27px;
+
+    margin-bottom: 15px;
+
+    background:
+        rgba(99,102,241,0.15);
+
+}
+
+
+.result-box h3 {
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+
+}
+
+
+#balance {
+
+    font-size: 36px;
+
+    margin-bottom: 10px;
+
+}
+
+
+#message {
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+}
+
+
+.positive {
+
+    color: #4ade80;
+
+}
+
+
+.negative {
+
+    color: #f87171;
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+.history-section {
+
+    margin-top: 30px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+
+}
+
+
+.history-card {
+
+    padding: 28px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(15px);
+
+}
+
+
+.history-card h2 {
+
+    margin-bottom: 20px;
+
+    font-size: 21px;
+
+}
+
+
+.history-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.history-table th,
+.history-table td {
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+
+}
+
+
+.history-table th {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+
+.history-table td {
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+
+}
+
+
+.income-amount {
+
+    color: #4ade80 !important;
+
+    font-weight: bold;
+
+}
+
+
+.expense-amount {
+
+    color: #f87171 !important;
+
+    font-weight: bold;
+
+}
+
+
+.no-history {
+
+    color: #64748b !important;
+
+    text-align: center !important;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+
+    .summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .calculator {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .history-section {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .welcome h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .navbar {
+
+        padding: 0 5%;
+
+    }
+
+
+    .brand h2 {
+
+        font-size: 17px;
+
+    }
+
+
+    .main {
+
+        margin: 25px auto;
+
+    }
+
+
+    .history-table {
+
+        font-size: 13px;
+
+    }
+
+
+    .history-table th,
+    .history-table td {
+
+        padding: 10px;
+
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+
+    .navbar {
+
+        height: 68px;
+
+    }
+
+
+    .brand-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+
+    .logout {
+
+        padding: 8px 13px;
+
+    }
+
+
+    .expense-card,
+    .result-card,
+    .history-card {
+
+        padding: 20px;
+
+    }
+
+
+    .history-table {
+
+        display: block;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+
+    <div class="brand">
+
+
+        <div class="brand-icon">
+
+            ₹
+
+        </div>
+
+
+        <h2>
+
+            BudgetFlow
+
+        </h2>
+
+
+    </div>
+
+
+    <button
+        class="logout"
+        onclick="logout()"
+    >
+
+        Logout
+
+    </button>
+
+
+</nav>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+    <!-- =========================
+         WELCOME
+    ========================= -->
+
+    <div class="welcome">
+
+
+        <h1 id="welcome">
+
+            Budget Overview
+
+        </h1>
+
+
+        <p>
+
+            Track your income and manage your monthly expenses.
+
+        </p>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         SUMMARY
+    ========================= -->
+
+    <div class="summary">
+
+
+        <!-- TOTAL INCOME -->
+
+        <div class="summary-card">
+
+
+            <p>
+
+                Total Income
+
+            </p>
+
+
+            <h2 id="incomeDisplay">
+
+                ₹0
+
+            </h2>
+
+
+        </div>
+
+
+
+        <!-- TOTAL EXPENSE -->
+
+        <div class="summary-card">
+
+
+            <p>
+
+                Total Expenses
+
+            </p>
+
+
+            <h2 id="expenseDisplay">
+
+                ₹0
+
+            </h2>
+
+
+        </div>
+
+
+
+        <!-- BALANCE -->
+
+        <div class="summary-card">
+
+
+            <p>
+
+                Remaining Balance
+
+            </p>
+
+
+            <h2 id="balanceDisplay">
+
+                ₹0
+
+            </h2>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         CALCULATOR
+    ========================= -->
+
+    <div class="calculator">
+
+
+        <!-- =========================
+             MONTHLY BUDGET
+        ========================= -->
+
+        <div class="expense-card">
+
+
+            <h2>
+
+                Monthly Budget
+
+            </h2>
+
+
+
+            <!-- INCOME CATEGORY -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Income Category
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="incomeCategory"
+                    placeholder="Example: Salary"
+                >
+
+
+            </div>
+
+
+
+            <!-- INCOME AMOUNT -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Income Amount (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="income"
+                    placeholder="Enter income amount"
+                >
+
+
+            </div>
+
+
+
+            <!-- RENT -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Rent (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="rent"
+                    placeholder="Enter rent"
+                >
+
+
+            </div>
+
+
+
+            <!-- GROCERIES -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Groceries (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="groceries"
+                    placeholder="Enter groceries"
+                >
+
+
+            </div>
+
+
+
+            <!-- TRANSPORTATION -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Transportation (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="transportation"
+                    placeholder="Enter transportation"
+                >
+
+
+            </div>
+
+
+
+            <!-- ENTERTAINMENT -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Entertainment (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="entertainment"
+                    placeholder="Enter entertainment"
+                >
+
+
+            </div>
+
+
+
+            <!-- OTHER -->
+
+            <div class="input-group">
+
+
+                <label>
+
+                    Other Expenses (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="other"
+                    placeholder="Enter other expenses"
+                >
+
+
+            </div>
+
+
+
+            <!-- CALCULATE -->
+
+            <button
+                class="calculate"
+                onclick="calculateBudget()"
+            >
+
+                Calculate Budget
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             RESULT CARD
+        ========================= -->
+
+        <div class="result-card">
+
+
+            <h2>
+
+                Budget Result
+
+            </h2>
+
+
+            <div class="result-box">
+
+
+                <div class="result-icon">
+
+                    ₹
+
+                </div>
+
+
+                <h3>
+
+                    Remaining Balance
+
+                </h3>
+
+
+                <h2 id="balance">
+
+                    ₹0
+
+                </h2>
+
+
+                <p id="message">
+
+                    Enter your details and calculate your budget.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         HISTORY SECTION
+    ========================= -->
+
+    <div class="history-section">
+
+
+        <!-- =========================
+             INCOME HISTORY
+        ========================= -->
+
+        <div class="history-card">
+
+
+            <h2>
+
+                Income History
+
+            </h2>
+
+
+            <table class="history-table">
+
+
+                <thead>
+
+
+                    <tr>
+
+
+                        <th>
+
+                            Date
+
+                        </th>
+
+
+                        <th>
+
+                            Category
+
+                        </th>
+
+
+                        <th>
+
+                            Amount
+
+                        </th>
+
+
+                    </tr>
+
+
+                </thead>
+
+
+
+                <tbody id="incomeHistory">
+
+
+                    <tr>
+
+
+                        <td
+                            colspan="3"
+                            class="no-history"
+                        >
+
+                            No income history yet.
+
+                        </td>
+
+
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             EXPENSE HISTORY
+        ========================= -->
+
+        <div class="history-card">
+
+
+            <h2>
+
+                Expense History
+
+            </h2>
+
+
+            <table class="history-table">
+
+
+                <thead>
+
+
+                    <tr>
+
+
+                        <th>
+
+                            Date
+
+                        </th>
+
+
+                        <th>
+
+                            Category
+
+                        </th>
+
+
+                        <th>
+
+                            Amount
+
+                        </th>
+
+
+                    </tr>
+
+
+                </thead>
+
+
+
+                <tbody id="expenseHistory">
+
+
+                    <tr>
+
+
+                        <td
+                            colspan="3"
+                            class="no-history"
+                        >
+
+                            No expense history yet.
+
+                        </td>
+
+
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+if (
+    localStorage.getItem("loggedIn")
+    != "true"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =========================
+   DISPLAY USER
+========================= */
+
+let loggedUsername =
+    localStorage.getItem("loggedUsername");
+
+
+let storedUser =
+    localStorage.getItem("user");
+
+
+if (storedUser != null) {
+
+
+    let user =
+        JSON.parse(storedUser);
+
+
+    document.getElementById("welcome").innerHTML =
+        "Welcome, " + user.fullName;
+
+}
+
+
+
+/* =========================
+   CALCULATE BUDGET
+========================= */
+
+function calculateBudget() {
+
+
+    /* =========================
+       GET INPUT VALUES
+    ========================= */
+
+    let incomeCategory =
+        document.getElementById(
+            "incomeCategory"
+        ).value;
+
+
+    let income =
+        Number(
+            document.getElementById(
+                "income"
+            ).value
+        );
+
+
+    let rent =
+        Number(
+            document.getElementById(
+                "rent"
+            ).value
+        );
+
+
+    let groceries =
+        Number(
+            document.getElementById(
+                "groceries"
+            ).value
+        );
+
+
+    let transportation =
+        Number(
+            document.getElementById(
+                "transportation"
+            ).value
+        );
+
+
+    let entertainment =
+        Number(
+            document.getElementById(
+                "entertainment"
+            ).value
+        );
+
+
+    let other =
+        Number(
+            document.getElementById(
+                "other"
+            ).value
+        );
+
+
+
+    /* =========================
+       TOTAL EXPENSES
+    ========================= */
+
+    let totalExpenses =
+        rent +
+        groceries +
+        transportation +
+        entertainment +
+        other;
+
+
+
+    /* =========================
+       BALANCE
+    ========================= */
+
+    let balance =
+        income -
+        totalExpenses;
+
+
+
+    /* =========================
+       UPDATE SUMMARY
+    ========================= */
+
+    document.getElementById(
+        "incomeDisplay"
+    ).innerHTML =
+        "₹" + income;
+
+
+    document.getElementById(
+        "expenseDisplay"
+    ).innerHTML =
+        "₹" + totalExpenses;
+
+
+    document.getElementById(
+        "balanceDisplay"
+    ).innerHTML =
+        "₹" + balance;
+
+
+
+    /* =========================
+       UPDATE RESULT
+    ========================= */
+
+    let balanceElement =
+        document.getElementById(
+            "balance"
+        );
+
+
+    let message =
+        document.getElementById(
+            "message"
+        );
+
+
+    if (balance >= 0) {
+
+
+        balanceElement.innerHTML =
+            "₹" + balance;
+
+
+        balanceElement.className =
+            "positive";
+
+
+        message.innerHTML =
+            "You have saved ₹" +
+            balance;
+
+
+    }
+
+    else {
+
+
+        balanceElement.innerHTML =
+            "₹" +
+            Math.abs(balance);
+
+
+        balanceElement.className =
+            "negative";
+
+
+        message.innerHTML =
+            "You have overspent by ₹" +
+            Math.abs(balance);
+
+    }
+
+
+
+    /* =========================
+       SAVE INCOME HISTORY
+    ========================= */
+
+    if (income > 0) {
+
+
+        let incomeHistory =
+            JSON.parse(
+                localStorage.getItem(
+                    "incomeHistory"
+                )
+            ) || [];
+
+
+        incomeHistory.push({
+
+            date:
+                new Date().toLocaleDateString(),
+
+            category:
+                incomeCategory ||
+                "Other",
+
+            amount:
+                income
+
+        });
+
+
+        localStorage.setItem(
+
+            "incomeHistory",
+
+            JSON.stringify(
+                incomeHistory
+            )
+
+        );
+
+    }
+
+
+
+    /* =========================
+       SAVE EXPENSE HISTORY
+    ========================= */
+
+    let expenseHistory =
+        JSON.parse(
+            localStorage.getItem(
+                "expenseHistory"
+            )
+        ) || [];
+
+
+    let today =
+        new Date().toLocaleDateString();
+
+
+
+    /* RENT */
+
+    if (rent > 0) {
+
+
+        expenseHistory.push({
+
+            date:
+                today,
+
+            category:
+                "Rent",
+
+            amount:
+                rent
+
+        });
+
+    }
+
+
+
+    /* GROCERIES */
+
+    if (groceries > 0) {
+
+
+        expenseHistory.push({
+
+            date:
+                today,
+
+            category:
+                "Groceries",
+
+            amount:
+                groceries
+
+        });
+
+    }
+
+
+
+    /* TRANSPORTATION */
+
+    if (transportation > 0) {
+
+
+        expenseHistory.push({
+
+            date:
+                today,
+
+            category:
+                "Transportation",
+
+            amount:
+                transportation
+
+        });
+
+    }
+
+
+
+    /* ENTERTAINMENT */
+
+    if (entertainment > 0) {
+
+
+        expenseHistory.push({
+
+            date:
+                today,
+
+            category:
+                "Entertainment",
+
+            amount:
+                entertainment
+
+        });
+
+    }
+
+
+
+    /* OTHER */
+
+    if (other > 0) {
+
+
+        expenseHistory.push({
+
+            date:
+                today,
+
+            category:
+                "Other",
+
+            amount:
+                other
+
+        });
+
+    }
+
+
+
+    localStorage.setItem(
+
+        "expenseHistory",
+
+        JSON.stringify(
+            expenseHistory
+        )
+
+    );
+
+
+
+    /* =========================
+       DISPLAY HISTORY
+    ========================= */
+
+    displayHistory();
+
+}
+
+
+
+/* =========================
+   DISPLAY HISTORY
+========================= */
+
+function displayHistory() {
+
+
+    /* =========================
+       INCOME HISTORY
+    ========================= */
+
+    let incomeHistory =
+        JSON.parse(
+            localStorage.getItem(
+                "incomeHistory"
+            )
+        ) || [];
+
+
+    let incomeTable =
+        document.getElementById(
+            "incomeHistory"
+        );
+
+
+    incomeTable.innerHTML = "";
+
+
+
+    incomeHistory.forEach(
+        function(item) {
+
+
+            incomeTable.innerHTML += `
+
+                <tr>
+
+                    <td>
+
+                        ${item.date}
+
+                    </td>
+
+
+                    <td>
+
+                        ${item.category}
+
+                    </td>
+
+
+                    <td class="income-amount">
+
+                        ₹${item.amount}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+
+    /* =========================
+       NO INCOME HISTORY
+    ========================= */
+
+    if (
+        incomeHistory.length === 0
+    ) {
+
+
+        incomeTable.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    class="no-history"
+                >
+
+                    No income history yet.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+
+    /* =========================
+       EXPENSE HISTORY
+    ========================= */
+
+    let expenseHistory =
+        JSON.parse(
+            localStorage.getItem(
+                "expenseHistory"
+            )
+        ) || [];
+
+
+    let expenseTable =
+        document.getElementById(
+            "expenseHistory"
+        );
+
+
+    expenseTable.innerHTML = "";
+
+
+
+    expenseHistory.forEach(
+        function(item) {
+
+
+            expenseTable.innerHTML += `
+
+                <tr>
+
+                    <td>
+
+                        ${item.date}
+
+                    </td>
+
+
+                    <td>
+
+                        ${item.category}
+
+                    </td>
+
+
+                    <td class="expense-amount">
+
+                        ₹${item.amount}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+
+    /* =========================
+       NO EXPENSE HISTORY
+    ========================= */
+
+    if (
+        expenseHistory.length === 0
+    ) {
+
+
+        expenseTable.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    class="no-history"
+                >
+
+                    No expense history yet.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================
+   LOAD HISTORY
+========================= */
+
+displayHistory();
+
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+
+    localStorage.removeItem(
+        "loggedIn"
+    );
+
+
+    localStorage.removeItem(
+        "loggedUsername"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
